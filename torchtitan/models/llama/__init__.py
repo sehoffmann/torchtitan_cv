@@ -56,6 +56,46 @@ llama3_configs = {
         multiple_of=4096,
         rope_theta=500000,
     ),
+
+    "340M_benchmark": TransformerModelArgs(  # BERT-Large
+        dim=1024,
+        n_layers=24,
+        n_heads=16,
+        n_kv_heads=16,
+        ffn_dim_multiplier=1.1,
+        multiple_of=1024,
+        rope_theta=500000,
+    ),
+
+    "1B_benchmark": TransformerModelArgs(  # 995 M
+        dim=1512,
+        n_layers=28,
+        n_heads=16,
+        n_kv_heads=8,
+        ffn_dim_multiplier=1.3,
+        multiple_of=1024,
+        rope_theta=500000,
+    ),
+
+    "2B_benchmark": TransformerModelArgs(  # 2201 M
+        dim=2176,
+        n_layers=32,
+        n_heads=16,
+        n_kv_heads=8,
+        ffn_dim_multiplier=1.3,
+        multiple_of=1024,
+        rope_theta=500000,
+    ),
+
+    "4B_benchmark": TransformerModelArgs(  # 4277 M
+        dim=3072,
+        n_layers=32,
+        n_heads=16,
+        n_kv_heads=8,
+        ffn_dim_multiplier=1.3,
+        multiple_of=1024,
+        rope_theta=500000,
+    ),
 }
 
 

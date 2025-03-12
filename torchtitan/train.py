@@ -30,6 +30,8 @@ from torchtitan.tools.profiling import (
     maybe_enable_profiling,
 )
 
+from torchtitan.benchmark import ConstantDataloader
+
 
 # Enable debug tracing on failure: https://pytorch.org/docs/stable/elastic/errors.html
 @record
@@ -93,6 +95,7 @@ def main(job_config: JobConfig):
     )
     train_spec = get_train_spec(job_config.model.name)
 
+    """
     # build dataloader
     tokenizer = train_spec.tokenizer_cls(job_config.model.tokenizer_path)
 
@@ -106,6 +109,8 @@ def main(job_config: JobConfig):
         tokenizer=tokenizer,
         job_config=job_config,
     )
+    """
+    dataloader = ConstantDataloader(job_config.training.batch_size, job_config.training.seq_len, 8048, device_type)
 
     # build model (using meta init)
     model_cls = train_spec.cls
@@ -115,7 +120,7 @@ def main(job_config: JobConfig):
     # 2. vocab size from tokenizer
     # 3. max_seq_len base on inputs
     model_config.norm_type = job_config.model.norm_type
-    model_config.vocab_size = tokenizer.n_words
+    model_config.vocab_size = 8048 #tokenizer.n_words
     model_config.max_seq_len = job_config.training.seq_len
 
     logger.info(
